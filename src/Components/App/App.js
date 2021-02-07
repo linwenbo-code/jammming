@@ -31,12 +31,9 @@ class App extends React.Component {
     }
 
     removeTrack(track) {
-        this.setState({
-                playlistTracks: this.state.playlistTracks.filter(savedTrack => {
-                    return savedTrack.id != track.id;
-                })
-            }
-        )
+        let tracks = this.state.playlistTracks;
+        tracks = tracks.filter((savedTrack) => savedTrack.id !== track.id )
+        this.setState({ playlistTracks: tracks });
     }
 
     updatePlaylistName(name) {
@@ -47,6 +44,7 @@ class App extends React.Component {
 
     savePlaylist() {
         const trackUris = this.state.playlistTracks.map(track => track.uri);
+        console.log(trackUris);
         Spotify.savePlaylist(this.state.playlistName, trackUris).then(() =>
             this.setState({
                 playlistName: 'New Playlist',
